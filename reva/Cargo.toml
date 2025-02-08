@@ -1,0 +1,41 @@
+[package]
+name = "reva"
+version = "0.13.0"
+description = "Type-safe, compiled Jinja-like templates for Rust"
+documentation = "https://docs.rs/reva"
+keywords = ["markup", "template", "jinja2", "html"]
+categories = ["template-engine"]
+homepage = "https://github.com/trisuaso/reva"
+repository = "https://github.com/trisuaso/reva"
+license = "MIT OR Apache-2.0"
+workspace = ".."
+readme = "../README.md"
+edition = "2021"
+rust-version = "1.65"
+
+[badges]
+maintenance = { status = "actively-developed" }
+
+[features]
+default = ["config", "humansize", "num-traits", "urlencode"]
+config = ["reva_derive/config"]
+humansize = ["reva_derive/humansize", "dep:humansize"]
+num-traits = ["reva_derive/num-traits", "dep:num-traits"]
+urlencode = ["reva_derive/urlencode", "dep:percent-encoding"]
+with-actix-web = ["reva_derive/with-actix-web"]
+with-axum = ["reva_derive/with-axum"]
+with-rocket = ["reva_derive/with-rocket"]
+with-warp = ["reva_derive/with-warp"]
+
+[dependencies]
+reva_derive = { version = "0.13", path = "../reva_derive" }
+reva_escape = { version = "0.11", path = "../reva_escape" }
+humansize = { package = "humansize", version = "2", optional = true }
+num-traits = { version = "0.2.19", optional = true }
+percent-encoding = { version = "2.3.1", optional = true }
+
+[dev-dependencies]
+criterion = "0.5"
+
+[package.metadata.docs.rs]
+features = ["config", "humansize", "num-traits"]

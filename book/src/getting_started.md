@@ -4,7 +4,7 @@ First, add the following to your crate's `Cargo.toml`:
 
 ```toml
 # in section [dependencies]
-askama = "0.12.1"
+reva = "0.12.1"
 ```
 
 Now create a directory called `templates` in your crate root.
@@ -17,7 +17,7 @@ Hello, {{ name }}!
 In any Rust file inside your crate, add the following:
 
 ```rust
-use askama::Template; // bring trait in scope
+use reva::Template; // bring trait in scope
 
 #[derive(Template)] // this will generate the code...
 #[template(path = "hello.html")] // using the template in this path, relative
@@ -43,13 +43,13 @@ First, add this to your `Cargo.toml` instead:
 
 ```toml
 # in section [dependencies]
-askama_axum = "0.4.0"
+reva_axum = "0.4.0"
 ```
 
-Then, import from askama_axum instead of askama:
+Then, import from reva_axum instead of reva:
 
 ```rust
-use askama_axum::Template;
+use reva_axum::Template;
 ```
 
 This enables the implementation for axum's `IntoResponse` trait,

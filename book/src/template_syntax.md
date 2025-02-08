@@ -5,9 +5,9 @@
 Top-level template variables are defined by the template's context type.
 You can use a dot (`.`) to access variable's attributes or methods.
 Reading from variables is subject to the usual borrowing policies.
-For example, `{{ name }}` will get the ``name`` field from the template
+For example, `{{ name }}` will get the `name` field from the template
 context,
-while `{{ user.name }}` will get the ``name`` field of the ``user``
+while `{{ user.name }}` will get the `name` field of the `user`
 field from the template context.
 
 ## Using constants in templates
@@ -20,7 +20,7 @@ pub const MAX_NB_USERS: usize = 2;
 ```
 
 defined in your crate root, you can then use it in your templates by
-using ``crate::MAX_NB_USERS``:
+using `crate::MAX_NB_USERS`:
 
 ```jinja
 <p>The user limit is {{ crate::MAX_NB_USERS }}.</p>
@@ -53,7 +53,7 @@ Assignments use the `let` tag:
 {{ val }}
 ```
 
-Like Rust, Askama also supports shadowing variables.
+Like Rust, Reva also supports shadowing variables.
 
 ```jinja
 {% let foo = "bar" %}
@@ -111,7 +111,7 @@ called on what `lower` returned.
 
 ## Whitespace control
 
-Askama considers all tabs, spaces, newlines and carriage returns to be
+Reva considers all tabs, spaces, newlines and carriage returns to be
 whitespace. By default, it preserves all whitespace in template code,
 except that a single trailing newline character is suppressed.
 However, whitespace before and after expression and block delimiters
@@ -160,12 +160,14 @@ character remaining will be a newline.
 Whitespace controls can also be defined by a
 [configuration file](configuration.md) or in the derive macro.
 These definitions follow the global-to-local preference:
+
 1. Inline (`-`, `+`, `~`)
 2. Derive (`#[template(whitespace = "suppress")]`)
-3. Configuration (in `askama.toml`, `whitespace = "preserve"`)
+3. Configuration (in `reva.toml`, `whitespace = "preserve"`)
 
 Two inline whitespace controls may point to the same whitespace span.
 In this case, they are resolved by the following preference.
+
 1. Suppress (`-`)
 2. Minimize (`~`)
 3. Preserve (`+`)
@@ -297,15 +299,17 @@ A base template defines **blocks** that child templates can override.
 ```html
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>{% block title %}{{ title }} - My Site{% endblock %}</title>
-    {% block head %}{% endblock %}
-  </head>
-  <body>
-    <div id="content">
-      {% block content %}<p>Placeholder content</p>{% endblock %}
-    </div>
-  </body>
+    <head>
+        <title>{% block title %}{{ title }} - My Site{% endblock %}</title>
+        {% block head %}{% endblock %}
+    </head>
+    <body>
+        <div id="content">
+            {% block content %}
+            <p>Placeholder content</p>
+            {% endblock %}
+        </div>
+    </body>
 </html>
 ```
 
@@ -320,7 +324,9 @@ It is also possible to use the name of the `block` in `endblock` (both in
 declaration and use):
 
 ```html
-{% block content %}<p>Placeholder content</p>{% endblock content %}
+{% block content %}
+<p>Placeholder content</p>
+{% endblock content %}
 ```
 
 ### Child template
@@ -328,20 +334,12 @@ declaration and use):
 Here's an example child template:
 
 ```html
-{% extends "base.html" %}
-
-{% block title %}Index{% endblock %}
-
-{% block head %}
-  <style>
-  </style>
-{% endblock %}
-
-{% block content %}
-  <h1>Index</h1>
-  <p>Hello, world!</p>
-  {% call super() %}
-{% endblock %}
+{% extends "base.html" %} {% block title %}Index{% endblock %} {% block head %}
+<style></style>
+{% endblock %} {% block content %}
+<h1>Index</h1>
+<p>Hello, world!</p>
+{% call super() %} {% endblock %}
 ```
 
 The `extends` tag tells the code generator that this template inherits
@@ -379,7 +377,7 @@ struct BlockFragment {
 
 ## HTML escaping
 
-Askama by default escapes variables if it thinks it is rendering HTML
+Reva by default escapes variables if it thinks it is rendering HTML
 content. It infers the escaping context from the extension of template
 filenames, escaping by default if the extension is one of `html`, `htm`,
 or `xml`. When specifying a template as `source` in an attribute, the
@@ -387,7 +385,7 @@ or `xml`. When specifying a template as `source` in an attribute, the
 you can specify an escape mode explicitly for your template by setting
 the `escape` attribute parameter value (to `none` or `html`).
 
-Askama escapes `<`, `>`, `&`, `"`, and `'`, according to the
+Reva escapes `<`, `>`, `&`, `"`, and `'`, according to the
 [OWASP escaping recommendations][owasp]. Use the `safe` filter to
 prevent escaping for a single expression, or the `escape` (or `e`)
 filter to escape a single expression in an unescaped context.
@@ -422,30 +420,27 @@ Loop over each item in an iterator. For example:
 ```html
 <h1>Users</h1>
 <ul>
-{% for user in users %}
-  <li>{{ user.name|e }}</li>
-{% endfor %}
+    {% for user in users %}
+    <li>{{ user.name|e }}</li>
+    {% endfor %}
 </ul>
 ```
 
 Inside for-loop blocks, some useful variables are accessible:
 
-* *loop.index*: current loop iteration (starting from 1)
-* *loop.index0*: current loop iteration (starting from 0)
-* *loop.first*: whether this is the first iteration of the loop
-* *loop.last*: whether this is the last iteration of the loop
-
+- _loop.index_: current loop iteration (starting from 1)
+- _loop.index0_: current loop iteration (starting from 0)
+- _loop.first_: whether this is the first iteration of the loop
+- _loop.last_: whether this is the last iteration of the loop
 
 ```html
 <h1>Users</h1>
 <ul>
-{% for user in users %}
-   {% if loop.first %}
-   <li>First: {{user.name}}</li>
-   {% else %}
-   <li>User#{{loop.index}}: {{user.name}}</li>
-   {% endif %}
-{% endfor %}
+    {% for user in users %} {% if loop.first %}
+    <li>First: {{user.name}}</li>
+    {% else %}
+    <li>User#{{loop.index}}: {{user.name}}</li>
+    {% endif %} {% endfor %}
 </ul>
 ```
 
@@ -506,13 +501,13 @@ matches (`(val)`), optionally introduced with a variant name. The
 `else` block is equivalent to matching on `_` (matching anything).
 
 Struct-like enum variants are supported from version 0.8, with the list
-of matches surrounded by curly braces instead (`{ field }`).  New names
+of matches surrounded by curly braces instead (`{ field }`). New names
 for the fields can be specified after a colon in the list of matches
 (`{ field: val }`).
 
 ### Include
 
-The *include* statement lets you split large or repetitive blocks into
+The _include_ statement lets you split large or repetitive blocks into
 separate template files. Included templates get full access to the context
 in which they're used, including local variables like those from loops:
 
@@ -527,14 +522,14 @@ in which they're used, including local variables like those from loops:
 ```
 
 The path to include must be a string literal, so that it is known at
-compile time. Askama will try to find the specified template relative
+compile time. Reva will try to find the specified template relative
 to the including template's path before falling back to the absolute
 template path. Use `include` within the branches of an `if`/`else`
 block to use includes more dynamically.
 
 ## Expressions
 
-Askama supports string literals (`"foo"`) and integer literals (`1`).
+Reva supports string literals (`"foo"`) and integer literals (`1`).
 It supports almost all binary operators that Rust supports,
 including arithmetic, comparison and logic operators.
 The parser applies the same precedence order as the Rust compiler.
@@ -558,7 +553,6 @@ equivalent to `self`, this can result in a stack overflow from infinite
 recursion. This is because the `Display` implementation for that expression
 will in turn evaluate the expression and yield `self` again.
 
-
 ## Templates in templates
 
 Using expressions, it is possible to delegate rendering part of a template to another template.
@@ -566,7 +560,7 @@ This makes it possible to inject modular template sections into other templates 
 testing and reuse.
 
 ```rust
-use askama::Template;
+use reva::Template;
 #[derive(Template)]
 #[template(source = "Section 1: {{ s1 }}", ext = "txt")]
 struct RenderInPlace<'a> {
@@ -587,21 +581,21 @@ assert_eq!(t.render().unwrap(), "Section 1: A=a\nB=b")
 **Note that if your inner template** like `SectionOne` **renders HTML content, you may want to
 disable escaping** when injecting it into an outer template, e.g. `{{ s1|safe }}`.
 Otherwise it will render the HTML content literally, because
-Askama [escapes HTML variables](#html-escaping) by default.
+Reva [escapes HTML variables](#html-escaping) by default.
 
 See the example
-[render in place](https://github.com/djc/askama/blob/main/testing/tests/render_in_place.rs)
+[render in place](https://github.com/trisuaso/reva/blob/main/testing/tests/render_in_place.rs)
 using a vector of templates in a for block.
 
 ## Comments
 
-Askama supports block comments delimited by `{#` and `#}`.
+Reva supports block comments delimited by `{#` and `#}`.
 
 ```jinja
 {# A Comment #}
 ```
 
-Like Rust, Askama also supports nested block comments.
+Like Rust, Reva also supports nested block comments.
 
 ```jinja
 {#
@@ -618,7 +612,7 @@ directly by using an expression as shown below.
 Including self does not work, see #105 and #220 .
 
 ```rust
-use askama::Template;
+use reva::Template;
 
 #[derive(Template)]
 #[template(source = r#"
@@ -716,7 +710,7 @@ It is possible to call rust macros directly in your templates:
 ```
 
 One important thing to note is that contrary to the rest of the expressions,
-Askama cannot know if a token given to a macro is a variable or something
+Reva cannot know if a token given to a macro is a variable or something
 else, so it will always default to generate it "as is". So if you have:
 
 ```rust

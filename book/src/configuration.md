@@ -1,7 +1,7 @@
 # Configuration
 
-At compile time, Askama will read optional configuration values from
-`askama.toml` in the crate root (the directory where `Cargo.toml` can
+At compile time, Reva will read optional configuration values from
+`reva.toml` in the crate root (the directory where `Cargo.toml` can
 be found). Currently, this covers the directories to search for templates,
 custom syntax configuration and escaper configuration.
 
@@ -98,12 +98,12 @@ names this syntax in the project.
 
 The following keys can currently be used to customize template syntax:
 
-* `block_start`, defaults to `{%`
-* `block_end`, defaults to `%}`
-* `comment_start`, defaults to `{#`
-* `comment_end`, defaults to `#}`
-* `expr_start`, defaults to `{{`
-* `expr_end`, defaults to `}}`
+- `block_start`, defaults to `{%`
+- `block_end`, defaults to `%}`
+- `comment_start`, defaults to `{#`
+- `comment_end`, defaults to `#}`
+- `expr_start`, defaults to `{{`
+- `expr_end`, defaults to `}}`
 
 Values must be at least two characters long.
 If a key is omitted, the value from the default syntax is used.

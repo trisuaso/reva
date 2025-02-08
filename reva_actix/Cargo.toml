@@ -1,0 +1,30 @@
+[package]
+name = "reva_actix"
+version = "0.15.0"
+description = "Actix-Web integration for Reva templates"
+documentation = "https://docs.rs/reva"
+keywords = ["markup", "template", "jinja2", "html"]
+categories = ["template-engine"]
+homepage = "https://github.com/trisuaso/reva"
+repository = "https://github.com/trisuaso/reva"
+license = "MIT OR Apache-2.0"
+workspace = ".."
+readme = "README.md"
+edition = "2021"
+rust-version = "1.65"
+
+[dependencies]
+actix-web = { version = "4", default-features = false }
+reva = { version = "0.13", path = "../reva", default-features = false, features = ["with-actix-web"] }
+
+[dev-dependencies]
+actix-rt = { version = "2", default-features = false }
+actix-test = "0.1"
+bytes = { version = "1" }
+
+[features]
+default = ["reva/default"]
+config = ["reva/config"]
+humansize = ["reva/humansize"]
+num-traits = ["reva/num-traits"]
+urlencode = ["reva/urlencode"]

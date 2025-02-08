@@ -1,24 +1,18 @@
 [workspace]
 members = [
-    "askama",
-    "askama_actix",
-    "askama_axum",
-    "askama_derive",
-    "askama_escape",
-    "askama_parser",
-    "askama_rocket",
-    "askama_warp",
-    "testing",
+    "reva",
+    "reva_actix",
+    "reva_axum",
+    "reva_derive",
+    "reva_escape",
+    "reva_parser",
 ]
 
 exclude = ["fuzz"]
-
 resolver = "2"
-
 default-members = [
-    "askama",
-    "askama_derive",
-    "askama_escape",
-    "askama_parser",
-    "testing",
+    "reva",
+    "reva_derive",
+    "reva_escape",
+    "reva_parser",
 ]

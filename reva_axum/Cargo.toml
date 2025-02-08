@@ -1,0 +1,32 @@
+[package]
+name = "reva_axum"
+version = "0.5.0"
+edition = "2021"
+rust-version = "1.65"
+description = "Axum integration for Reva templates"
+keywords = ["markup", "template", "jinja2", "html", "axum"]
+categories = ["template-engine"]
+homepage = "https://github.com/trisuaso/reva"
+repository = "https://github.com/trisuaso/reva"
+documentation = "https://docs.rs/reva"
+license = "MIT OR Apache-2.0"
+workspace = ".."
+readme = "README.md"
+
+[dependencies]
+reva = { version = "0.13", path = "../reva", default-features = false, features = ["with-axum"] }
+axum-core = "0.4"
+http = "1.2"
+
+[dev-dependencies]
+axum = { version = "0.6", default-features = false }
+http-body-util = "0.1"
+tokio = { version = "1.38", features = ["macros", "rt"] }
+tower = { version = "0.5", features = ["util"] }
+
+[features]
+default = ["reva/default"]
+config = ["reva/config"]
+humansize = ["reva/humansize"]
+num-traits = ["reva/num-traits"]
+urlencode = ["reva/urlencode"]

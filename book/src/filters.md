@@ -14,45 +14,47 @@ is passed to the next.
 **Note that the pipe symbol must not be surrounded by spaces**;
 otherwise, it will be interpreted as the `BitOr` operator.
 
-Askama has a collection of built-in filters, documented below, but can also include custom filters. 
+Reva has a collection of built-in filters, documented below, but can also include custom filters.
 Additionally, the `json` filter is included in the built-in filters, but is disabled by default.
 Enable it with Cargo features (see below for more information).
 
 **Table of contents**
 
-* **[Built-in filters][#built-in-filters]:**  
+- **[Built-in filters][#built-in-filters]:**
 
-  * [`abs`][#abs]
-  * [`as_ref`][#as_ref]
-  * [`capitalize`][#capitalize]
-  * [`center`][#center]
-  * [`deref`][#deref]
-  * [`escape|e`][#escape]
-  * [`filesizeformat`][#filesizeformat]
-  * [`fmt`][#fmt]
-  * [`format`][#format]
-  * [`indent`][#indent]
-  * [`join`][#join]
-  * [`linebreaks`][#linebreaks]
-  * [`linebreaksbr`][#linebreaksbr]
-  * [`lower|lowercase`][#lower]
-  * [`safe`][#safe]
-  * [`title`][#title]
-  * [`trim`][#trim]
-  * [`truncate`][#truncate]
-  * [`upper|uppercase`][#upper]
-  * [`urlencode`][#urlencode]
-  * [`wordcount`][#wordcount]
+    - [`abs`][#abs]
+    - [`as_ref`][#as_ref]
+    - [`capitalize`][#capitalize]
+    - [`center`][#center]
+    - [`deref`][#deref]
+    - [`escape|e`][#escape]
+    - [`filesizeformat`][#filesizeformat]
+    - [`fmt`][#fmt]
+    - [`format`][#format]
+    - [`indent`][#indent]
+    - [`join`][#join]
+    - [`linebreaks`][#linebreaks]
+    - [`linebreaksbr`][#linebreaksbr]
+    - [`lower|lowercase`][#lower]
+    - [`safe`][#safe]
+    - [`title`][#title]
+    - [`trim`][#trim]
+    - [`truncate`][#truncate]
+    - [`upper|uppercase`][#upper]
+    - [`urlencode`][#urlencode]
+    - [`wordcount`][#wordcount]
 
-* **[Optional / feature gated filters][#optional-filters]:**  
+- **[Optional / feature gated filters][#optional-filters]:**
   [`json|tojson`][#json],
 
-* **[Custom filters][#custom-filters]**
+- **[Custom filters][#custom-filters]**
 
 ## Built-In Filters
+
 [#built-in-filters]: #built-in-filters
 
 ### abs
+
 [#abs]: #abs
 
 Returns the absolute value.
@@ -68,6 +70,7 @@ Output:
 ```
 
 ### as_ref
+
 [#as_ref]: #as_ref
 
 Creates a reference to the given argument.
@@ -85,6 +88,7 @@ will become:
 ```
 
 ### capitalize
+
 [#capitalize]: #capitalize
 
 Capitalize a value. The first character will be uppercase, all others lowercase:
@@ -100,6 +104,7 @@ Hello
 ```
 
 ### center
+
 [#center]: #center
 
 Centers the value in a field of a given width:
@@ -109,11 +114,13 @@ Centers the value in a field of a given width:
 ```
 
 Output:
+
 ```
 -  a  -
 ```
 
 ### deref
+
 [#deref]: #deref
 
 Dereferences the given argument.
@@ -132,6 +139,7 @@ if *s == String::from("b") {}
 ```
 
 ### escape | e
+
 [#escape]: #escape--e
 
 Escapes HTML characters in strings:
@@ -146,9 +154,9 @@ Output:
 Escape &lt;&gt;&amp;
 ```
 
-Optionally, it is possible to specify and override which escaper is used. 
-Consider a template where the escaper is configured as [`escape = "none"`]. 
-However, somewhere escaping using the HTML escaper is desired. 
+Optionally, it is possible to specify and override which escaper is used.
+Consider a template where the escaper is configured as [`escape = "none"`].
+However, somewhere escaping using the HTML escaper is desired.
 Then it is possible to override and use the HTML escaper like this:
 
 ```jinja
@@ -172,6 +180,7 @@ Escape &lt;&gt;&amp;
 [`escape = "none"`]: creating_templates.html#the-template-attribute
 
 ### filesizeformat
+
 [#filesizeformat]: #filesizeformat
 
 Returns adequate string representation (in KB, ..) of number of bytes:
@@ -181,6 +190,7 @@ Returns adequate string representation (in KB, ..) of number of bytes:
 ```
 
 Output:
+
 ```
 1 KB
 ```
@@ -191,9 +201,9 @@ Output:
 
 Formats arguments according to the specified format
 
-The *second* argument to this filter must be a string literal (as in normal
+The _second_ argument to this filter must be a string literal (as in normal
 Rust). The two arguments are passed through to [`format!()`] by
-the Askama code generator, but the order is swapped to support filter
+the Reva code generator, but the order is swapped to support filter
 composition.
 
 ```text
@@ -208,13 +218,14 @@ Which is not possible using the `format` filter.
 ```
 
 ### format
+
 [#format]: #format
 
 Formats arguments according to the specified format.
 
 The first argument to this filter must be a string literal (as in normal Rust).
 
-All arguments are passed through to [`format!()`] by the Askama code generator.
+All arguments are passed through to [`format!()`] by the Reva code generator.
 
 ```
 {{ "{:?}"|format(var) }}
@@ -223,6 +234,7 @@ All arguments are passed through to [`format!()`] by the Askama code generator.
 [`format!()`]: https://doc.rust-lang.org/stable/std/macro.format.html
 
 ### indent
+
 [#indent]: #indent
 
 Indent newlines with width spaces.
@@ -240,6 +252,7 @@ hello
 ```
 
 ### join
+
 [#join]: #join
 
 Joins iterable into a string separated by provided argument.
@@ -259,6 +272,7 @@ foo, bar, bazz
 ```
 
 ### linebreaks
+
 [#linebreaks]: #linebreaks
 
 Replaces line breaks in plain text with appropriate HTML.
@@ -266,31 +280,33 @@ Replaces line breaks in plain text with appropriate HTML.
 A single newline becomes an HTML line break `<br>` and a new line followed by a blank line becomes a paragraph break `<p>`.
 
 ```
-{{ "hello\nworld\n\nfrom\naskama"|linebreaks }}
+{{ "hello\nworld\n\nfrom\nreva"|linebreaks }}
 ```
 
 Output:
 
 ```
-<p>hello<br />world</p><p>from<br />askama</p>
+<p>hello<br />world</p><p>from<br />reva</p>
 ```
 
 ### linebreaksbr
+
 [#linebreaksbr]: #linebreaksbr
 
 Converts all newlines in a piece of plain text to HTML line breaks.
 
 ```
-{{ "hello\nworld\n\nfrom\naskama"|linebreaks }}
+{{ "hello\nworld\n\nfrom\nreva"|linebreaks }}
 ```
 
 Output:
 
 ```
-hello<br />world<br /><br />from<br />askama
+hello<br />world<br /><br />from<br />reva
 ```
 
 ### paragraphbreaks
+
 [#paragraphbreaks]: #paragraphbreaks
 
 A new line followed by a blank line becomes `<p>`, but, unlike `linebreaks`, single new lines are ignored and no `<br/>` tags are generated.
@@ -300,16 +316,17 @@ Consecutive double line breaks will be reduced down to a single paragraph break.
 This is useful in contexts where changing single line breaks to line break tags would interfere with other HTML elements, such as lists and nested `<div>` tags.
 
 ```
-{{ "hello\nworld\n\nfrom\n\n\n\naskama"|paragraphbreaks }}
+{{ "hello\nworld\n\nfrom\n\n\n\nreva"|paragraphbreaks }}
 ```
 
 Output:
 
 ```
-<p>hello\nworld</p><p>from</p><p>askama</p>
+<p>hello\nworld</p><p>from</p><p>reva</p>
 ```
 
 ### lower | lowercase
+
 [#lower]: #lower--lowercase
 
 Converts to lowercase.
@@ -325,6 +342,7 @@ hello
 ```
 
 ### safe
+
 [#safe]: #safe
 
 Marks a string (or other Display type) as safe. By default all strings are escaped according to the format.
@@ -340,6 +358,7 @@ Output:
 ```
 
 ### title
+
 [#title]: #title
 
 Return a title cased version of the value. Words will start with uppercase letters, all
@@ -356,6 +375,7 @@ Hello World
 ```
 
 ### trim
+
 [#trim]: #trim
 
 Strip leading and trailing whitespace.
@@ -371,10 +391,10 @@ hello
 ```
 
 ### truncate
+
 [#truncate]: #truncate
 
 Limit string length, appends '...' if truncated.
-
 
 ```
 {{ "hello"|truncate(2) }}
@@ -387,6 +407,7 @@ he...
 ```
 
 ### upper | uppercase
+
 [#upper]: #upper--uppercase
 
 Converts to uppercase.
@@ -402,6 +423,7 @@ HELLO
 ```
 
 ### urlencode
+
 [#urlencode]: #urlencode
 
 Percent encodes the string. Replaces reserved characters with the % escape character followed by a byte value as two hexadecimal digits.
@@ -417,12 +439,13 @@ hello%3Fworld
 ```
 
 ### wordcount
+
 [#wordcount]: #wordcount
 
 Count the words in that string.
 
 ```
-{{ "askama is sort of cool"|wordcount }}
+{{ "reva is sort of cool"|wordcount }}
 ```
 
 Output:
@@ -432,6 +455,7 @@ Output:
 ```
 
 ## Optional / feature gated filters
+
 [#optional-filters]: #optional--feature-gated-filters
 
 The following filters can be enabled by requesting the respective feature in the Cargo.toml
@@ -439,10 +463,11 @@ The following filters can be enabled by requesting the respective feature in the
 
 ```
 [dependencies]
-askama = { version = "0.11.2", features = "serde-json" }
+reva = { version = "0.11.2", features = "serde-json" }
 ```
 
 ### `json` | `tojson`
+
 [#json]: #json--tojson
 
 Enabling the `serde-json` feature will enable the use of the `json` filter.
@@ -470,29 +495,31 @@ Ugly: <script>var data = '{{data|json|safe}}';</script>
 ```
 
 ## Custom Filters
+
 [#custom-filters]: #custom-filters
 
-To define your own filters, simply have a module named `filters` in scope of the context deriving a `Template` impl 
-and define the filters as functions within this module. 
-The functions must have at least one argument and the return type must be `::askama::Result<T>`.
-Although there are no restrictions on `T` for a single filter, 
-the final result of a chain of filters must implement `Display`. 
+To define your own filters, simply have a module named `filters` in scope of the context deriving a `Template` impl
+and define the filters as functions within this module.
+The functions must have at least one argument and the return type must be `::reva::Result<T>`.
+Although there are no restrictions on `T` for a single filter,
+the final result of a chain of filters must implement `Display`.
 
-The arguments to the filters are passed as follows. 
-The first argument corresponds to the expression they are applied to. 
-Subsequent arguments, if any, must be given directly when calling the filter. 
-The first argument may or may not be a reference, depending on the context in which the filter is called. 
+The arguments to the filters are passed as follows.
+The first argument corresponds to the expression they are applied to.
+Subsequent arguments, if any, must be given directly when calling the filter.
+The first argument may or may not be a reference, depending on the context in which the filter is called.
 To abstract over ownership, consider defining your argument as a trait bound.
-For example, the `trim` built-in filter accepts any value implementing `Display`. 
-Its signature is similar to `fn trim(s: impl std::fmt::Display) -> ::askama::Result<String>`.
+For example, the `trim` built-in filter accepts any value implementing `Display`.
+Its signature is similar to `fn trim(s: impl std::fmt::Display) -> ::reva::Result<String>`.
 
 Note that built-in filters have preference over custom filters, so, in case of name collision, the built-in filter is applied.
 
 ### Examples
 
 Implementing a filter that replaces all instances of `"oo"` for `"aa"`.
+
 ```rust
-use askama::Template;
+use reva::Template;
 
 #[derive(Template)]
 #[template(source = "{{ s|myfilter }}", ext = "txt")]
@@ -503,7 +530,7 @@ struct MyFilterTemplate<'a> {
 // Any filter defined in the module `filters` is accessible in your template.
 mod filters {
     // This filter does not have extra arguments
-    pub fn myfilter<T: std::fmt::Display>(s: T) -> ::askama::Result<String> {
+    pub fn myfilter<T: std::fmt::Display>(s: T) -> ::reva::Result<String> {
         let s = s.to_string();
         Ok(s.replace("oo", "aa"))
     }
@@ -516,8 +543,9 @@ fn main() {
 ```
 
 Implementing a filter that replaces all instances of `"oo"` for `n` times `"a"`.
+
 ```rust
-use askama::Template;
+use reva::Template;
 
 #[derive(Template)]
 #[template(source = "{{ s|myfilter(4) }}", ext = "txt")]
@@ -528,7 +556,7 @@ struct MyFilterTemplate<'a> {
 // Any filter defined in the module `filters` is accessible in your template.
 mod filters {
     // This filter requires a `usize` input when called in templates
-    pub fn myfilter<T: std::fmt::Display>(s: T, n: usize) -> ::askama::Result<String> {
+    pub fn myfilter<T: std::fmt::Display>(s: T, n: usize) -> ::reva::Result<String> {
         let s = s.to_string();
     	  let mut replace = String::with_capacity(n);
     	  replace.extend((0..n).map(|_| "a"));

@@ -1,0 +1,24 @@
+[package]
+name = "reva_parser"
+version = "0.3.1"
+description = "Parser for Reva templates"
+documentation = "https://docs.rs/reva"
+keywords = ["markup", "template", "jinja2", "html"]
+categories = ["template-engine"]
+homepage = "https://github.com/trisuaso/reva"
+repository = "https://github.com/trisuaso/reva"
+license = "MIT OR Apache-2.0"
+workspace = ".."
+readme = "README.md"
+edition = "2021"
+rust-version = "1.65"
+
+[dependencies]
+nom = { version = "7.1.3", default-features = false, features = ["alloc"] }
+
+[dev-dependencies]
+criterion = "0.5"
+
+[[bench]]
+name = "from_str"
+harness = false
