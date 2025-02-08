@@ -31,4 +31,4 @@ proc-macro2 = "1"
 quote = "1"
 syn = "2"
 basic-toml = { version = "0.1.9" }
-serde = "1.0.217"
+serde = { version = "1.0.217", features = ["derive"] }
