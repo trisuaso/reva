@@ -15,7 +15,7 @@ readme = "README.md"
 
 [dependencies]
 reva = { version = "0.13.2", path = "../reva", default-features = false, features = ["with-axum"] }
-axum-core = "0.4"
+axum-core = "0.5"
 http = "1.2"
 
 [dev-dependencies]
