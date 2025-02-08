@@ -41,9 +41,6 @@ jobs:
                         reva_derive,
                         reva_escape,
                         reva_parser,
-                        reva_rocket,
-                        reva_warp,
-                        testing,
                     ]
         runs-on: ubuntu-latest
         steps:

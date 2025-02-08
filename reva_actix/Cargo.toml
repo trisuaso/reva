@@ -1,6 +1,6 @@
 [package]
 name = "reva_actix"
-version = "0.15.0"
+version = "0.15.1"
 description = "Actix-Web integration for Reva templates"
 documentation = "https://docs.rs/reva"
 keywords = ["markup", "template", "jinja2", "html"]
