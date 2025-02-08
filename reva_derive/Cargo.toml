@@ -1,6 +1,6 @@
 [package]
 name = "reva_derive"
-version = "0.13.0"
+version = "0.13.1"
 description = "Procedural macro package for Reva"
 homepage = "https://github.com/trisuaso/reva"
 repository = "https://github.com/trisuaso/reva"
@@ -31,3 +31,4 @@ proc-macro2 = "1"
 quote = "1"
 syn = "2"
 basic-toml = { version = "0.1.9", optional = true }
+serde = "1.0.217"

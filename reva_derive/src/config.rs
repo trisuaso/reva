@@ -8,6 +8,8 @@ use parser::expr::TWO_PLUS_CHAR_OPS;
 use parser::node::Whitespace;
 use parser::Syntax;
 
+use serde::Deserialize;
+
 #[derive(Debug)]
 pub(crate) struct Config<'a> {
     pub(crate) dirs: Vec<PathBuf>,
@@ -182,20 +184,22 @@ impl<'a> TryInto<Syntax<'a>> for RawSyntax<'a> {
     }
 }
 
-#[derive(Default)]
+#[derive(Default, Deserialize)]
 struct RawConfig<'a> {
+    #[serde(borrow)]
     general: Option<General<'a>>,
     syntax: Option<Vec<RawSyntax<'a>>>,
     escaper: Option<Vec<RawEscaper<'a>>>,
 }
 
 impl RawConfig<'_> {
-    fn from_toml_str(_: &str) -> std::result::Result<RawConfig<'_>, CompileError> {
-        Err("TOML support not available".into())
+    fn from_toml_str(s: &str) -> std::result::Result<RawConfig<'_>, CompileError> {
+        basic_toml::from_str(s)
+            .map_err(|e| format!("invalid TOML in {CONFIG_FILE_NAME}: {e}").into())
     }
 }
 
-#[derive(Clone, Copy, Default, PartialEq, Eq, Debug)]
+#[derive(Clone, Copy, Default, PartialEq, Eq, Debug, Deserialize)]
 pub(crate) enum WhitespaceHandling {
     /// The default behaviour. It will leave the whitespace characters "as is".
     #[default]
@@ -218,12 +222,14 @@ impl From<WhitespaceHandling> for Whitespace {
     }
 }
 
+#[derive(Deserialize)]
 struct General<'a> {
     dirs: Option<Vec<&'a str>>,
     default_syntax: Option<&'a str>,
     whitespace: WhitespaceHandling,
 }
 
+#[derive(Deserialize)]
 struct RawSyntax<'a> {
     name: &'a str,
     block_start: Option<&'a str>,
@@ -234,6 +240,7 @@ struct RawSyntax<'a> {
     comment_end: Option<&'a str>,
 }
 
+#[derive(Deserialize)]
 struct RawEscaper<'a> {
     path: &'a str,
     extensions: Vec<&'a str>,
