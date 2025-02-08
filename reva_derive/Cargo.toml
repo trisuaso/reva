@@ -1,6 +1,6 @@
 [package]
 name = "reva_derive"
-version = "0.13.1"
+version = "0.13.2"
 description = "Procedural macro package for Reva"
 homepage = "https://github.com/trisuaso/reva"
 repository = "https://github.com/trisuaso/reva"
@@ -14,7 +14,7 @@ rust-version = "1.65"
 proc-macro = true
 
 [features]
-config = ["basic-toml"]
+config = []
 humansize = []
 urlencode = []
 num-traits = []
@@ -30,5 +30,5 @@ mime_guess = "2"
 proc-macro2 = "1"
 quote = "1"
 syn = "2"
-basic-toml = { version = "0.1.9", optional = true }
+basic-toml = { version = "0.1.9" }
 serde = "1.0.217"

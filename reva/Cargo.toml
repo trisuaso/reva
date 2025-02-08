@@ -1,6 +1,6 @@
 [package]
 name = "reva"
-version = "0.13.1"
+version = "0.13.2"
 description = "Type-safe, compiled Jinja-like templates for Rust"
 documentation = "https://docs.rs/reva"
 keywords = ["markup", "template", "jinja2", "html"]
@@ -28,7 +28,7 @@ with-rocket = ["reva_derive/with-rocket"]
 with-warp = ["reva_derive/with-warp"]
 
 [dependencies]
-reva_derive = { version = "0.13", path = "../reva_derive" }
+reva_derive = { version = "0.13.2", path = "../reva_derive" }
 reva_escape = { version = "0.11", path = "../reva_escape" }
 humansize = { package = "humansize", version = "2", optional = true }
 num-traits = { version = "0.2.19", optional = true }

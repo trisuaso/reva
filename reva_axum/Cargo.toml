@@ -14,7 +14,7 @@ workspace = ".."
 readme = "README.md"
 
 [dependencies]
-reva = { version = "0.13", path = "../reva", default-features = false, features = ["with-axum"] }
+reva = { version = "0.13.2", path = "../reva", default-features = false, features = ["with-axum"] }
 axum-core = "0.4"
 http = "1.2"
 
